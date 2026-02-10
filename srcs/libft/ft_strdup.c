@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/09 14:37:48 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/10 10:43:19 by jalosta-         ###   ########.fr       */
+/*   Created: 2026/02/10 09:33:00 by jalosta-          #+#    #+#             */
+/*   Updated: 2026/02/10 10:30:10 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+char	*ft_strdup(const char *s)
 {
-	int	map_fd;
+	char	*dup;
+	int		len;
 
-	if (ac != 2)
-	{
-		ft_dprintf(STDERR_FILENO, "Error: %s\n", strerror(EINVAL));
-		ft_dprintf(STDERR_FILENO, "Usage: ./so_long <map>\n");
-		return (EXIT_FAILURE);
-	}
-	map_fd = open(av[1], O_RDONLY);
-	if (map_fd == OPEN_FAIL)
-		perror("Error");
-	return (EXIT_FAILURE);
+	if (s == NULL || s == EMPTY_STRING)
+		return (NULL);
+	len = ft_strlen(s);
+	dup = malloc(len + 1);
+	if (dup == NULL)
+		return (NULL);
+	dup[len] = '\0';
+	while (len--)
+		dup[len] = s[len];
+	return (dup);
 }

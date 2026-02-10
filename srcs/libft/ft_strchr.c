@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/09 14:37:48 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/10 10:43:19 by jalosta-         ###   ########.fr       */
+/*   Created: 2026/02/10 09:33:00 by jalosta-          #+#    #+#             */
+/*   Updated: 2026/02/10 10:25:58 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+char	*ft_strchr(const char *s, int c)
 {
-	int	map_fd;
-
-	if (ac != 2)
+	while (*s)
 	{
-		ft_dprintf(STDERR_FILENO, "Error: %s\n", strerror(EINVAL));
-		ft_dprintf(STDERR_FILENO, "Usage: ./so_long <map>\n");
-		return (EXIT_FAILURE);
+		if (*s == c)
+			return ((char *)s);
+		s++;
+		if (*s == '\0' && c == '\0')
+			return ((char *)s);
 	}
-	map_fd = open(av[1], O_RDONLY);
-	if (map_fd == OPEN_FAIL)
-		perror("Error");
-	return (EXIT_FAILURE);
+	return (NULL);
 }

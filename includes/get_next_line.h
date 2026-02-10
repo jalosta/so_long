@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/09 14:37:48 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/10 10:43:19 by jalosta-         ###   ########.fr       */
+/*   Created: 2026/02/09 18:35:38 by jalosta-          #+#    #+#             */
+/*   Updated: 2026/02/10 11:08:01 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-int	main(int ac, char **av)
-{
-	int	map_fd;
+# include "libft.h"
+# include <stdlib.h> // malloc, free
+# include <unistd.h> // read
 
-	if (ac != 2)
-	{
-		ft_dprintf(STDERR_FILENO, "Error: %s\n", strerror(EINVAL));
-		ft_dprintf(STDERR_FILENO, "Usage: ./so_long <map>\n");
-		return (EXIT_FAILURE);
-	}
-	map_fd = open(av[1], O_RDONLY);
-	if (map_fd == OPEN_FAIL)
-		perror("Error");
-	return (EXIT_FAILURE);
-}
+# define READ_ERROR -1
+# define END_OF_FILE 0
+
+char	*get_next_line(int fd);
+
+#endif

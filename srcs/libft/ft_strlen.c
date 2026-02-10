@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/09 14:37:48 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/10 10:43:19 by jalosta-         ###   ########.fr       */
+/*   Created: 2026/02/10 09:33:00 by jalosta-          #+#    #+#             */
+/*   Updated: 2026/02/10 10:25:31 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+size_t	ft_strlen(const char *s)
 {
-	int	map_fd;
+	size_t	len;
 
-	if (ac != 2)
-	{
-		ft_dprintf(STDERR_FILENO, "Error: %s\n", strerror(EINVAL));
-		ft_dprintf(STDERR_FILENO, "Usage: ./so_long <map>\n");
-		return (EXIT_FAILURE);
-	}
-	map_fd = open(av[1], O_RDONLY);
-	if (map_fd == OPEN_FAIL)
-		perror("Error");
-	return (EXIT_FAILURE);
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
 }

@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/09 14:37:48 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/10 10:43:19 by jalosta-         ###   ########.fr       */
+/*   Created: 2026/02/10 09:33:00 by jalosta-          #+#    #+#             */
+/*   Updated: 2026/02/10 10:30:10 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int	map_fd;
+	char	*result;
+	size_t	i;
+	size_t	j;
 
-	if (ac != 2)
+	result = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (result == NULL)
+		return (NULL);
+	i = 0;
+	while (s1[i])
 	{
-		ft_dprintf(STDERR_FILENO, "Error: %s\n", strerror(EINVAL));
-		ft_dprintf(STDERR_FILENO, "Usage: ./so_long <map>\n");
-		return (EXIT_FAILURE);
+		result[i] = s1[i];
+		i++;
 	}
-	map_fd = open(av[1], O_RDONLY);
-	if (map_fd == OPEN_FAIL)
-		perror("Error");
-	return (EXIT_FAILURE);
+	j = 0;
+	while (s2[j])
+	{
+		result[i + j] = s2[j];
+		j++;
+	}
+	result[i + j] = '\0';
+	return (result);
 }

@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/09 14:37:48 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/10 10:43:19 by jalosta-         ###   ########.fr       */
+/*   Created: 2026/02/10 09:33:00 by jalosta-          #+#    #+#             */
+/*   Updated: 2026/02/10 09:47:30 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+int	ft_putstr_fd(const char *s, int fd)
 {
-	int	map_fd;
+	int	count;
+	int	e_check;
 
-	if (ac != 2)
+	count = 0;
+	if (s == NULL)
+		return (ft_putstr_fd("(null)", fd));
+	while (*s)
 	{
-		ft_dprintf(STDERR_FILENO, "Error: %s\n", strerror(EINVAL));
-		ft_dprintf(STDERR_FILENO, "Usage: ./so_long <map>\n");
-		return (EXIT_FAILURE);
+		e_check = ft_putchar_fd(*s, fd);
+		if (e_check == WRITE_FAIL)
+			return (WRITE_FAIL);
+		count += e_check;
+		s++;
 	}
-	map_fd = open(av[1], O_RDONLY);
-	if (map_fd == OPEN_FAIL)
-		perror("Error");
-	return (EXIT_FAILURE);
+	return (count);
 }
