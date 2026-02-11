@@ -6,7 +6,7 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:02:59 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/10 11:16:08 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/11 16:46:28 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,44 +21,77 @@ static void	free_if_heaped(void **ptr)
 	}
 }
 
-static char	*append_char(char *line, char *c)
+static char	*keep_leftover(char **str, size_t start, size_t len)
 {
-	char	*joined;
+	char	*stash;
 
-	joined = ft_strjoin(line, c);
-	free_if_heaped((void **)&line);
-	return (joined);
+	stash = ft_substr(*str, start, len);
+	if (stash == NULL)
+		return (NULL);
+	free_if_heaped((void **)str);
+	return (stash);
 }
 
-static char	*read_line(int fd)
+static char	*pull_line_from_stash(char **str)
 {
-	ssize_t	e_check;
-	char	c;
+	char	*leftover;
+	size_t	leftover_len;
+	size_t	len;
 	char	*line;
 
-	line = ft_strdup(EMPTY_STRING);
-	if (line == NULL)
-		return (NULL);
-	e_check = read(fd, &c, 1);
-	while (c != '\n')
+	leftover = ft_strchr(*str, '\n');
+	if (leftover == NULL)
 	{
-		if (e_check == READ_ERROR)
-			return (free_if_heaped((void **)&line), NULL);
-		if (e_check == END_OF_FILE)
-		{
-			if (*line == '\0')
-				return (free_if_heaped((void **)&line), NULL);
-			return (line);
-		}
-		line = append_char(line, &c);
-		if (line == NULL)
-			return (NULL);
-		e_check = read(fd, &c, 1);
+		line = ft_strdup(*str);
+		return (free_if_heaped((void **)str), line);
 	}
+	len = (size_t)(leftover - *str) + 1;
+	line = ft_substr(*str, 0, len);
+	if (line == NULL)
+		return (free_if_heaped((void **)str), NULL);
+	leftover_len = ft_strlen(*str + len);
+	*str = keep_leftover(str, len, leftover_len);
+	if (*str == NULL)
+		return (free_if_heaped((void **)&line), NULL);
 	return (line);
+}
+
+static char	*read_and_append(char *str, int fd)
+{
+	ssize_t	bytes;
+	char	buffer[BUFFER_SIZE + 1];
+
+	if (str != NULL && ft_strchr(str, '\n'))
+		return (str);
+	while (INFINITE_LOOP)
+	{
+		bytes = read(fd, buffer, BUFFER_SIZE);
+		if (bytes == READ_ERROR)
+			return (free_if_heaped((void **)&str), NULL);
+		if (bytes == END_OF_FILE)
+			return (str);
+		buffer[bytes] = '\0';
+		if (str == NULL)
+			str = ft_strdup(buffer);
+		else
+			str = ft_strjoin(str, buffer);
+		if (str == NULL)
+			return (NULL);
+		if (ft_strchr(buffer, '\n'))
+			return (str);
+	}
 }
 
 char	*get_next_line(int fd)
 {
-	return (read_line(fd));
+	static char	*s_str;
+	char		*line;
+
+	s_str = read_and_append(s_str, fd);
+	if (s_str == NULL)
+		return (NULL);
+	if (*s_str == '\0')
+		return (free_if_heaped((void **)&s_str), NULL);
+	line = pull_line_from_stash(&s_str);
+	return (line);
 }

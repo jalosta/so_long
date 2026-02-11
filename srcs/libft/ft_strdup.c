@@ -6,7 +6,7 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 09:33:00 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/10 10:30:10 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/10 11:26:08 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strdup(const char *s)
 	char	*dup;
 	int		len;
 
-	if (s == NULL || s == EMPTY_STRING)
+	if (s == NULL)
 		return (NULL);
 	len = ft_strlen(s);
 	dup = malloc(len + 1);

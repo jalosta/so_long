@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunbr_fd.c                                    :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/10 09:33:00 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/10 10:51:12 by jalosta-         ###   ########.fr       */
+/*   Created: 2026/02/10 13:36:15 by jalosta-          #+#    #+#             */
+/*   Updated: 2026/02/10 13:36:27 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putunbr_fd(unsigned int n, int fd)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int	count;
-	int	e_check;
+	char	*substr;
 
-	count = 0;
-	if (n > 9)
-		ft_putunbr_fd(n / 10, fd);
-	e_check = ft_putchar("0123456789"[n % 10]);
-	if (e_check == WRITE_FAIL)
-		return (WRITE_FAIL);
-	count += e_check;
-	return (count);
+	substr = malloc(len + 1);
+	if (!substr)
+		return (NULL);
+	substr[len] = '\0';
+	while (len--)
+		substr[len] = s[start + len];
+	return (substr);
 }

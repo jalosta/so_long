@@ -6,7 +6,7 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:37:47 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/10 10:54:55 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/11 15:22:34 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static int	handle_format(const char format, va_list ap, int fd)
 		return (ft_putchar_fd(va_arg(ap, int), fd));
 	else if (format == 's')
 		return (ft_putstr_fd(va_arg(ap, const char *), fd));
-	else if (format == 'u')
-		return (ft_putunbr_fd(va_arg(ap, unsigned int), fd));
+	else if (format == 'd' || format == 'i')
+		return (ft_putnbr_fd(va_arg(ap, int), fd));
 	else
 		return (ft_putchar_fd('%', fd));
 }
