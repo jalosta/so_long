@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/09 18:35:38 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/13 15:26:38 by jalosta-         ###   ########.fr       */
+/*   Created: 2025/08/04 13:49:52 by jalosta-          #+#    #+#             */
+/*   Updated: 2026/02/11 19:43:26 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "libft.h"
-# include <stdlib.h> // malloc, free
-# include <unistd.h> // read
-
-# define READ_ERROR -1
-# define END_OF_FILE 0
-# define INFINITE_LOOP 1
-# define BUFFER_SIZE 1024
-
-char	*get_next_line_trimmed(int fd);
-
-#endif
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}

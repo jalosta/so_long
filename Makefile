@@ -6,7 +6,7 @@
 #    By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/09 14:40:20 by jalosta-          #+#    #+#              #
-#    Updated: 2026/02/11 15:44:41 by jalosta-         ###   ########.fr        #
+#    Updated: 2026/02/13 15:30:02 by jalosta-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,11 @@ CC = cc
 
 FLAGS = -I includes
 
-LIBFT_SRCS = srcs/libft/ft_putchar_fd.c srcs/libft/ft_itoa.c srcs/libft/ft_putstr_fd.c srcs/libft/ft_putnbr_fd.c srcs/libft/ft_strlen.c srcs/libft/ft_strdup.c srcs/libft/ft_strjoin.c srcs/libft/ft_strchr.c srcs/libft/ft_substr.c
+LIBFT_SRCS = srcs/utils/libft/ft_putchar_fd.c srcs/utils/libft/ft_itoa.c srcs/utils/libft/ft_putstr_fd.c srcs/utils/libft/ft_putnbr_fd.c srcs/utils/libft/ft_strlen.c srcs/utils/libft/ft_strdup.c srcs/utils/libft/ft_strjoin.c srcs/utils/libft/ft_strchr.c srcs/utils/libft/ft_strtrim.c srcs/utils/libft/ft_substr.c srcs/utils/libft/ft_lstdelone.c srcs/utils/libft/ft_lstclear.c
 
-DPRINTF_SRCS = srcs/ft_dprintf/ft_dprintf.c
+DPRINTF_SRCS = srcs/utils/ft_dprintf/ft_dprintf.c
 
-GNL_SRCS = srcs/get_next_line/get_next_line.c
+GNL_SRCS = srcs/utils/get_next_line_trimmed/get_next_line_trimmed.c
 
 SRCS = srcs/main.c $(DPRINTF_SRCS) $(GNL_SRCS) $(LIBFT_SRCS)
 

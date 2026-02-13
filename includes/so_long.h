@@ -6,7 +6,7 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 10:27:49 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/11 15:22:57 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/12 02:02:12 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,21 @@
 # include <string.h>  // strerror
 # include <unistd.h>  // write
 
-# define OPEN_FAIL -1
-# define TILE 48
-# define WALL 49
-# define COLLECTIBLE 67
-# define MAP_EXIT 69
-# define PLAYER 80
-# define PARSE_FAILURE -1
-
-typedef struct s_map_dimensions
+typedef enum e_map_errors
 {
-	unsigned int	x;
-	unsigned int	y;
-}					t_map_dimensions;
+	MAP_ERR_EMPTY = 1 << 0,
+	MAP_ERR_NOT_RECTANGULAR = 1 << 1,
+	MAP_ERR_NOT_ENCLOSED = 1 << 2,
+	MAP_ERR_NO_EXIT = 1 << 3,
+	MAP_ERR_NO_START = 1 << 4,
+	MAP_ERR_NO_COLLECTIBLE = 1 << 5,
+}	t_map_errors;
+
+# define OPEN_FAIL -1
+# define WALL '1'
+# define TILE '0'
+# define COLLECTIBLE 'C'
+# define EXIT 'E'
+# define START 'P'
 
 #endif

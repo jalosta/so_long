@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/09 18:35:38 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/13 15:26:38 by jalosta-         ###   ########.fr       */
+/*   Created: 2026/02/11 17:28:55 by jalosta-          #+#    #+#             */
+/*   Updated: 2026/02/11 17:29:15 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "libft.h"
-# include <stdlib.h> // malloc, free
-# include <unistd.h> // read
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	size_t	start;
+	size_t	end;
 
-# define READ_ERROR -1
-# define END_OF_FILE 0
-# define INFINITE_LOOP 1
-# define BUFFER_SIZE 1024
-
-char	*get_next_line_trimmed(int fd);
-
-#endif
+	start = 0;
+	while (s1[start] && ft_strchr(set, s1[start]))
+		start++;
+	end = ft_strlen(s1);
+	while (end > start && ft_strchr(set, s1[end - 1]))
+		end--;
+	return (ft_substr(s1, start, end - start));
+}

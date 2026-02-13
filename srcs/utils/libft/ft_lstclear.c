@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/09 18:35:38 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/13 15:26:38 by jalosta-         ###   ########.fr       */
+/*   Created: 2025/08/04 13:49:59 by jalosta-          #+#    #+#             */
+/*   Updated: 2026/02/11 18:22:56 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "libft.h"
-# include <stdlib.h> // malloc, free
-# include <unistd.h> // read
+void	ft_lstclear(t_list **lst, void (*del)(void *))
+{
+	t_list	*temp;
 
-# define READ_ERROR -1
-# define END_OF_FILE 0
-# define INFINITE_LOOP 1
-# define BUFFER_SIZE 1024
-
-char	*get_next_line_trimmed(int fd);
-
-#endif
+	if (lst == NULL || del == NULL)
+		return ;
+	while (*lst)
+	{
+		temp = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = temp;
+	}
+	*lst = NULL;
+}

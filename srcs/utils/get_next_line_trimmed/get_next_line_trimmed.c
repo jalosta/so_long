@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_trimmed.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:02:59 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/11 16:46:28 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/13 15:40:41 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,24 @@ static char	*keep_leftover(char **str, size_t start, size_t len)
 
 static char	*pull_line_from_stash(char **str)
 {
-	char	*leftover;
-	size_t	leftover_len;
+	char	*newline;
 	size_t	len;
 	char	*line;
 
-	leftover = ft_strchr(*str, '\n');
-	if (leftover == NULL)
+	newline = ft_strchr(*str, '\n');
+	if (newline == NULL)
 	{
 		line = ft_strdup(*str);
 		return (free_if_heaped((void **)str), line);
 	}
-	len = (size_t)(leftover - *str) + 1;
-	line = ft_substr(*str, 0, len);
+	len = (size_t)(newline - *str);
+	if (len == 0)
+		line = ft_strdup(EMPTY_STRING);
+	else
+		line = ft_substr(*str, 0, len);
 	if (line == NULL)
 		return (free_if_heaped((void **)str), NULL);
-	leftover_len = ft_strlen(*str + len);
-	*str = keep_leftover(str, len, leftover_len);
+	*str = keep_leftover(str, len + 1, ft_strlen(newline + 1));
 	if (*str == NULL)
 		return (free_if_heaped((void **)&line), NULL);
 	return (line);
@@ -82,7 +83,7 @@ static char	*read_and_append(char *str, int fd)
 	}
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line_trimmed(int fd)
 {
 	static char	*s_str;
 	char		*line;
