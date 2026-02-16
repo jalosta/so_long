@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   flood_fill.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/09 18:35:38 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/13 15:26:38 by jalosta-         ###   ########.fr       */
+/*   Created: 2026/02/16 16:05:30 by jalosta-          #+#    #+#             */
+/*   Updated: 2026/02/16 16:08:18 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef FLOOD_FILL_H
+# define FLOOD_FILL_H
 
 # include "libft.h"
-# include <stdlib.h> // malloc, free
-# include <unistd.h> // read
+# include "so_long.h"
 
-# define READ_ERROR -1
-# define END_OF_FILE 0
-# define INFINITE_LOOP 1
-# define BUFFER_SIZE 1024
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}		t_point;
 
-char	*get_next_line_trimmed(int fd);
+void	flood_fill(char **tab, t_point size, t_point begin);
 
 #endif

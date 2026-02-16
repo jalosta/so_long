@@ -6,7 +6,7 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 14:37:48 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/12 02:02:37 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/16 16:55:50 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static void	print_err_list(unsigned int errors)
 		print_err("Map is not rectangular");
 	if (errors & MAP_ERR_NOT_ENCLOSED)
 		print_err("Map is not enclosed");
-	if (errors & MAP_ERR_NO_EXIT)
+	if (errors & MAP_ERR_NO_SINGLE_EXIT)
 		print_err("Map must have a single exit");
-	if (errors & MAP_ERR_NO_START)
+	if (errors & MAP_ERR_NO_SINGLE_START)
 		print_err("Map must have a single starting position");
 	if (errors & MAP_ERR_NO_COLLECTIBLE)
 		print_err("Map must have at least one collectible");
@@ -57,7 +57,7 @@ int	main(int ac, char **av)
 		ft_dprintf(STDERR_FILENO, "Usage: ./so_long <map>\n");
 		exit(EXIT_FAILURE);
 	}
-	err_check = evaluate_map(open_map_file(av[1]));
+	evaluate_map(open_map_file(av[1]), &err_check);
 	if (err_check)
 		print_err_list(err_check);
 }

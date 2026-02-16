@@ -6,7 +6,7 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 00:34:32 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/13 15:27:26 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/16 17:36:44 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,45 @@ static t_list	*trace_map(int map_fd)
 	return (head);
 }
 
-char	evaluate_map(int map_fd)
+static char	**build_table(t_list *map)
 {
-	char	errors;
-	t_list	*map;
+	char	**tab;
+	size_t	i;
 
-	errors = 0;
+	i = 0;
+	while (map != NULL)
+	{
+		tab[i] = ft_strdup(map->content);
+		map = map->next;
+		i++;
+	}
+	tab[i] = NULL;
+	return (tab);
+}
+
+void	evaluate_map(int map_fd, char error_mask)
+{
+	t_list	*map;
+	size_t	width;
+	size_t	height;
+
 	map = trace_map(map_fd);
 	if (map == NULL)
 		return (MAP_ERR_EMPTY);
-	if (false == map_is_rectangular(map))
-		errors |= MAP_ERR_NOT_RECTANGULAR;
-	if (false == map_is_enclosed(map))
-		errors |= MAP_ERR_NOT_ENCLOSED;
-	if (false == map_has_single_exit(map))
-		errors |= MAP_ERR_NO_EXIT;
-	if (false == map_has_single_start(map))
-		errors |= MAP_ERR_NO_START;
+	width = ft_strlen(map->content);
+	height = ft_lstsize(map);
+	error_mask = 0;
+	if (false == map_is_rectangular(map, width))
+		error_mask |= MAP_ERR_NOT_RECTANGULAR;
+	if (false == map_is_enclosed(map, width))
+		error_mask |= MAP_ERR_NOT_ENCLOSED;
+	if (false == map_has_single_passage(map, EXIT))
+		error_mask |= MAP_ERR_NO_SINGLE_EXIT;
+	if (false == map_has_single_passage(map, START))
+		error_mask |= MAP_ERR_NO_SINGLE_START;
 	if (false == map_has_collectible(map))
-		errors |= MAP_ERR_NO_COLLECTIBLE;
+		error_mask |= MAP_ERR_NO_COLLECTIBLE;
+	if (false == map_is_navigable(build_table(map), width, height))
+		error_mask |= MAP_ERR_NO_VALID_PATH;
 	ft_lstclear(&map, free);
-	return (errors);
 }
