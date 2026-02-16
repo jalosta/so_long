@@ -6,7 +6,7 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 10:27:49 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/16 17:29:15 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:50:35 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ bool	map_is_rectangular(t_list *map, size_t ref_len);
 bool	map_is_enclosed(t_list *map, size_t map_width);
 bool	map_has_single_passage(t_list *map, char passage);
 bool	map_has_collectible(t_list *map);
-bool	map_is_navigable(char **tab, size_t map_width, size_t map_height);
+bool	map_is_navigable(t_list *map);
 
 #endif

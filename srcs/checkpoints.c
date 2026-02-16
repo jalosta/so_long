@@ -6,7 +6,7 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 00:49:56 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/16 17:28:54 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:53:46 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,6 @@ bool	map_has_collectible(t_list *map)
 	return (false);
 }
 
-bool	map_is_navigable(char **tab, size_t width, size_t map_height)
+bool	map_is_navigable(t_list *map)
 {
 }

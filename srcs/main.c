@@ -6,7 +6,7 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 14:37:48 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/16 16:55:50 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:55:25 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	open_map_file(char *map_filename)
 	return (map_fd);
 }
 
-static void	print_err_list(unsigned int errors)
+static void	print_err_list(char errors)
 {
 	if (errors & MAP_ERR_EMPTY)
 		print_err("Map is empty");
@@ -57,6 +57,7 @@ int	main(int ac, char **av)
 		ft_dprintf(STDERR_FILENO, "Usage: ./so_long <map>\n");
 		exit(EXIT_FAILURE);
 	}
+	err_check = 0;
 	evaluate_map(open_map_file(av[1]), &err_check);
 	if (err_check)
 		print_err_list(err_check);

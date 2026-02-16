@@ -6,11 +6,11 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 09:02:59 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/13 15:40:41 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:16:50 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_trimmed.h"
 
 static void	free_if_heaped(void **ptr)
 {
