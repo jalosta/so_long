@@ -6,13 +6,13 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 00:49:56 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/16 18:53:46 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:56:07 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-bool	map_is_rectangular(t_list *map, size_t ref_len)
+bool	is_rectangular(t_list *map, size_t ref_len)
 {
 	while (map != NULL)
 	{
@@ -23,7 +23,7 @@ bool	map_is_rectangular(t_list *map, size_t ref_len)
 	return (true);
 }
 
-bool	map_is_enclosed(t_list *map, size_t width)
+bool	is_enclosed(t_list *map, size_t width)
 {
 	char	*line;
 	char	*end_line;
@@ -36,7 +36,7 @@ bool	map_is_enclosed(t_list *map, size_t width)
 		line++;
 	}
 	end_line = ft_lstlast(map)->content;
-	if (EQUAL != ft_strncmp(line, end_line, width))
+	if (EQUAL != ft_strncmp(map->content, end_line, width))
 		return (false);
 	map = map->next;
 	while (map != NULL && map->content != end_line)
@@ -49,7 +49,7 @@ bool	map_is_enclosed(t_list *map, size_t width)
 	return (true);
 }
 
-bool	map_has_single_passage(t_list *map, char passage)
+bool	has_passage(t_list *map, char passage)
 {
 	char	*line;
 	bool	found;
@@ -73,7 +73,7 @@ bool	map_has_single_passage(t_list *map, char passage)
 	return (found);
 }
 
-bool	map_has_collectible(t_list *map)
+bool	has_collectible(t_list *map)
 {
 	while (map != NULL)
 	{
@@ -84,6 +84,31 @@ bool	map_has_collectible(t_list *map)
 	return (false);
 }
 
-bool	map_is_navigable(t_list *map)
+bool	is_navigable(char **tab)
 {
+	t_point	start;
+	t_point	size;
+	int		y;
+	int		x;
+
+	y = -1;
+	while (tab[++y] != NULL)
+	{
+		x = -1;
+		while (tab[y][++x] != '\0')
+			if (tab[y][x] == START)
+				start = (t_point){x, y};
+	}
+	size = (t_point){ft_strlen(tab[0]), y};
+	flood_fill(tab, size, start);
+	y = -1;
+	while (tab[++y] != NULL)
+	{
+		x = -1;
+		while (tab[y][++x] != '\0')
+			if (tab[y][x] == EXIT || tab[y][x] == START
+				|| tab[y][x] == COLLECTIBLE)
+				return (false);
+	}
+	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 14:37:48 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/16 18:55:25 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/16 19:52:45 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static void	print_err_list(char errors)
 		print_err("Map must have a single starting position");
 	if (errors & MAP_ERR_NO_COLLECTIBLE)
 		print_err("Map must have at least one collectible");
+	if (errors & MAP_ERR_NO_VALID_PATH)
+		print_err("Exit, starting position and collectibles must be reachable");
 	exit(EXIT_FAILURE);
 }
 
@@ -57,8 +59,7 @@ int	main(int ac, char **av)
 		ft_dprintf(STDERR_FILENO, "Usage: ./so_long <map>\n");
 		exit(EXIT_FAILURE);
 	}
-	err_check = 0;
-	evaluate_map(open_map_file(av[1]), &err_check);
+	err_check = evaluate_map(open_map_file(av[1]));
 	if (err_check)
 		print_err_list(err_check);
 }

@@ -6,7 +6,7 @@
 #    By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/09 14:40:20 by jalosta-          #+#    #+#              #
-#    Updated: 2026/02/16 17:04:18 by jalosta-         ###   ########.fr        #
+#    Updated: 2026/02/17 16:49:23 by jalosta-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ DPRINTF_SRCS = srcs/utils/ft_dprintf/ft_dprintf.c
 
 GNL_SRCS = srcs/utils/get_next_line_trimmed/get_next_line_trimmed.c
 
-SRCS = srcs/main.c srcs/parser.c srcs/checkpoints.c $(DPRINTF_SRCS) $(GNL_SRCS) $(LIBFT_SRCS)
+FLOOD_FILL_SRCS = srcs/utils/flood_fill.c
+
+SRCS = srcs/main.c srcs/parser.c srcs/checkpoints.c $(DPRINTF_SRCS) $(GNL_SRCS) $(LIBFT_SRCS) $(FLOOD_FILL_SRCS)
 
 $(NAME): $(SRCS)
 	$(CC) $(FLAGS) $(SRCS) -o $(NAME)

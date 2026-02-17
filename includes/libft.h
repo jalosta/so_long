@@ -6,7 +6,7 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 09:23:12 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/16 17:03:49 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:50:03 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 t_list				*ft_lstlast(t_list *lst);
 t_list				*ft_lstnew(void *content);
+int					ft_lstsize(t_list *lst);
 int					ft_putchar_fd(int c, int fd);
 int					ft_putnbr_fd(int n, int fd);
 int					ft_putstr_fd(const char *s, int fd);

@@ -6,7 +6,7 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 10:27:49 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/16 18:50:35 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:42:53 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ typedef enum e_map_errors
 	MAP_ERR_NO_VALID_PATH = 1 << 6
 }		t_map_errors;
 
+typedef struct s_data
+{
+	char	error;
+	t_list	*map;
+	size_t	width;
+	size_t	height;
+	char	*tab;
+}	t_data;
+
 # define OPEN_FAIL -1
 # define WALL '1'
 # define TILE '0'
@@ -43,11 +52,11 @@ typedef enum e_map_errors
 # define EXIT 'E'
 # define START 'P'
 
-void	evaluate_map(int map_fd, char error_mask);
-bool	map_is_rectangular(t_list *map, size_t ref_len);
-bool	map_is_enclosed(t_list *map, size_t map_width);
-bool	map_has_single_passage(t_list *map, char passage);
-bool	map_has_collectible(t_list *map);
-bool	map_is_navigable(t_list *map);
+char	evaluate_map(int map_fd);
+bool	is_rectangular(t_list *map, size_t ref_len);
+bool	is_enclosed(t_list *map, size_t width);
+bool	has_passage(t_list *map, char passage);
+bool	has_collectible(t_list *map);
+bool	is_navigable(char **tab);
 
 #endif
