@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flood_fill.h                                       :+:      :+:    :+:   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/16 16:05:30 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/16 16:08:18 by jalosta-         ###   ########.fr       */
+/*   Created: 2026/02/23 12:37:28 by jalosta-          #+#    #+#             */
+/*   Updated: 2026/02/23 13:18:29 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FLOOD_FILL_H
-# define FLOOD_FILL_H
+#include "so_long.h"
 
-# include "libft.h"
-# include "so_long.h"
-
-typedef struct s_point
+void	free_arrays(char **arrays)
 {
-	int	x;
-	int	y;
-}		t_point;
+	size_t	i;
 
-void	flood_fill(char **tab, t_point size, t_point begin);
-
-#endif
+	i = 0;
+	while (arrays[i] != NULL)
+	{
+		free(arrays[i]);
+		i++;
+	}
+	if (arrays)
+		free(arrays);
+}

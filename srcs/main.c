@@ -6,60 +6,49 @@
 /*   By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 14:37:48 by jalosta-          #+#    #+#             */
-/*   Updated: 2026/02/16 19:52:45 by jalosta-         ###   ########.fr       */
+/*   Updated: 2026/02/23 16:22:57 by jalosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	print_err(char *msg)
+void	validate_or_exit(t_game *ctx)
 {
-	ft_dprintf(STDERR_FILENO, "Error: %s\n", msg);
-}
+	char	e_mask;
 
-static int	open_map_file(char *map_filename)
-{
-	int	map_fd;
-
-	map_fd = open(map_filename, O_RDONLY);
-	if (map_fd == OPEN_FAIL)
+	e_mask = 0;
+	e_mask |= validate_row_lengths(ctx->map, ctx);
+	e_mask |= validate_walls(ctx->map, ctx);
+	e_mask |= validate_unique_passage(ctx->map, EXIT);
+	e_mask |= validate_unique_passage(ctx->map, START);
+	e_mask |= count_collectibles(ctx->map, ctx);
+	if (e_mask)
 	{
-		perror("Error");
-		exit(EXIT_FAILURE);
+		free_arrays(ctx->map);
+		print_err_list(e_mask);
 	}
-	return (map_fd);
-}
-
-static void	print_err_list(char errors)
-{
-	if (errors & MAP_ERR_EMPTY)
-		print_err("Map is empty");
-	if (errors & MAP_ERR_NOT_RECTANGULAR)
-		print_err("Map is not rectangular");
-	if (errors & MAP_ERR_NOT_ENCLOSED)
-		print_err("Map is not enclosed");
-	if (errors & MAP_ERR_NO_SINGLE_EXIT)
-		print_err("Map must have a single exit");
-	if (errors & MAP_ERR_NO_SINGLE_START)
-		print_err("Map must have a single starting position");
-	if (errors & MAP_ERR_NO_COLLECTIBLE)
-		print_err("Map must have at least one collectible");
-	if (errors & MAP_ERR_NO_VALID_PATH)
-		print_err("Exit, starting position and collectibles must be reachable");
-	exit(EXIT_FAILURE);
+	else
+	{
+		if (false == is_navigable(ctx->map, ctx->map_size))
+		{
+			free_arrays(ctx->map);
+			print_err_list(MAP_ERR_NO_VALID_PATH);
+		}
+	}
 }
 
 int	main(int ac, char **av)
 {
-	char	err_check;
+	t_game	ctx;
+	void	*mlx;
+	void	*win;
 
 	if (ac != 2)
-	{
-		print_err(strerror(EINVAL));
-		ft_dprintf(STDERR_FILENO, "Usage: ./so_long <map>\n");
-		exit(EXIT_FAILURE);
-	}
-	err_check = evaluate_map(open_map_file(av[1]));
-	if (err_check)
-		print_err_list(err_check);
+		return (print_err(strerror(EINVAL)), EXIT_FAILURE);
+	load_map(av[1], &ctx);
+	if (ctx.map == NULL)
+		return (print_err("Empty map"), EXIT_FAILURE);
+	validate_or_exit(&ctx);
+	free_arrays(ctx.map);
+	return (EXIT_SUCCESS);
 }

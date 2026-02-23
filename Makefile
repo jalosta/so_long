@@ -6,7 +6,7 @@
 #    By: jalosta- <jalosta-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/09 14:40:20 by jalosta-          #+#    #+#              #
-#    Updated: 2026/02/17 16:49:23 by jalosta-         ###   ########.fr        #
+#    Updated: 2026/02/23 15:45:59 by jalosta-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,17 +14,15 @@ NAME = so_long
 
 CC = cc
 
-FLAGS = -I includes
+FLAGS = -I includes -I minilibx-linux
 
-LIBFT_SRCS = srcs/utils/libft/ft_putchar_fd.c srcs/utils/libft/ft_itoa.c srcs/utils/libft/ft_putstr_fd.c srcs/utils/libft/ft_putnbr_fd.c srcs/utils/libft/ft_strlen.c srcs/utils/libft/ft_strdup.c srcs/utils/libft/ft_strjoin.c srcs/utils/libft/ft_strchr.c srcs/utils/libft/ft_strncmp.c srcs/utils/libft/ft_substr.c srcs/utils/libft/ft_lstdelone.c srcs/utils/libft/ft_lstclear.c srcs/utils/libft/ft_lstnew.c srcs/utils/libft/ft_lstadd_back.c srcs/utils/libft/ft_lstlast.c srcs/utils/libft/ft_lstsize.c srcs/utils/libft/ft_strlcpy.c
+LIBFT_SRCS = srcs/utils/libft/ft_itoa.c srcs/utils/libft/ft_lstadd_back.c srcs/utils/libft/ft_lstclear.c srcs/utils/libft/ft_lstdelone.c srcs/utils/libft/ft_lstlast.c srcs/utils/libft/ft_lstnew.c srcs/utils/libft/ft_lstsize.c srcs/utils/libft/ft_putchar_fd.c srcs/utils/libft/ft_putnbr_fd.c srcs/utils/libft/ft_putstr_fd.c srcs/utils/libft/ft_strchr.c srcs/utils/libft/ft_strdup.c srcs/utils/libft/ft_strjoin.c srcs/utils/libft/ft_strlen.c srcs/utils/libft/ft_substr.c
 
 DPRINTF_SRCS = srcs/utils/ft_dprintf/ft_dprintf.c
 
 GNL_SRCS = srcs/utils/get_next_line_trimmed/get_next_line_trimmed.c
 
-FLOOD_FILL_SRCS = srcs/utils/flood_fill.c
-
-SRCS = srcs/main.c srcs/parser.c srcs/checkpoints.c $(DPRINTF_SRCS) $(GNL_SRCS) $(LIBFT_SRCS) $(FLOOD_FILL_SRCS)
+SRCS = srcs/checkpoints.c srcs/cleanup.c srcs/error.c srcs/main.c srcs/parse.c srcs/utils/flood_fill.c $(DPRINTF_SRCS) $(GNL_SRCS) $(LIBFT_SRCS)
 
 $(NAME): $(SRCS)
 	$(CC) $(FLAGS) $(SRCS) -o $(NAME)
